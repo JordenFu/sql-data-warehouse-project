@@ -1,6 +1,6 @@
 /*
 ===============================================================================
-Stored Procedure: Load Bronze Layer (Source -> Bronze)
+Stored Procedure: Load Bronze Layer (Sources -> Bronze)
 ===============================================================================
 Script Purpose:
     This stored procedure loads data into the 'bronze' schema from external CSV files. 
@@ -10,7 +10,7 @@ Script Purpose:
 
 Parameters:
     None. 
-	  This stored procedure does not accept any parameters and does not return any values.
+	This stored procedure does not accept any parameters and does not return any values.
 
 Usage Example:
     EXEC bronze.load_bronze;
@@ -43,12 +43,14 @@ BEGIN
 		WITH (
 			FIRSTROW = 2,
 			FIELDTERMINATOR = ',',
-			TABLOCK
+			TABLOCK                        -- accelerate loading speed
 		);
 		SET @end_time = GETDATE();
 		PRINT '>> Load Duration: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds';
 		PRINT '>> ---------------';
 		PRINT ' ';
+
+
 		/*
 		-- Make sure you correctly loaded the data
 		SELECT *
@@ -57,6 +59,7 @@ BEGIN
 		SELECT COUNT(*)
 		FROM bronze.crm_cust_info;
 		*/
+
 
 		SET @start_time = GETDATE();
 		PRINT '>> Truncating Table: bronze.crm_prd_info';
@@ -168,6 +171,7 @@ BEGIN
 		print '    - Total Load Duration: ' + CAST(DATEDIFF(SECOND, @batch_start_time, @batch_end_time) AS NVARCHAR) + ' seconds';
 		PRINT '========================================';
 	END TRY
+		
 	BEGIN CATCH
 		PRINT '================================================';
 		PRINT 'ERROR OCCURED DURING LOADING BRONZE LAYER'
@@ -175,7 +179,5 @@ BEGIN
 		PRINT 'Error Message' + CAST (ERROR_NUMBER() AS NVARCHAR);
 		PRINT 'Error Message' + CAST (ERROR_STATE() AS NVARCHAR);
 		PRINT '================================================';
-
-
 	END CATCH
 END
