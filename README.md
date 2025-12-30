@@ -19,6 +19,15 @@ This repository is my first SQL end-to-end project to showcase exertise in:
 * Data Analytics
 
 ---
+## Data Architecture
+
+The data architecture for this project follows Medallion Architecture Bronze, Silver, and Gold layers:
+
+![Data Architecture](docs//DW_figure.png)
+
+
+
+---
 
 ## Important Links:
 
