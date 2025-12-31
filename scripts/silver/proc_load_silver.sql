@@ -101,8 +101,8 @@ BEGIN
 				WHEN UPPER(TRIM(prd_line)) = 'T' THEN 'Touring'
 				ELSE 'n/a'
 			END AS prd_line, -- Map product line codes to descriptive values
-			prd_start_dt,
-			DATEADD(DAY, -1, LEAD(prd_start_dt) OVER (PARTITION BY prd_key ORDER BY prd_start_dt)) AS prd_end_tdt
+			CAST(prd_start_dt AS DATE) AS prd_start_dt,
+			CAST(DATEADD(DAY, -1, LEAD(prd_start_dt) OVER (PARTITION BY prd_key ORDER BY prd_start_dt)) AS DATE) AS prd_end_dt
 		FROM bronze.crm_prd_info;
 
 		SET @end_time = GETDATE();
