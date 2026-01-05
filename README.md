@@ -75,9 +75,9 @@ This diagram illustrates data provenance and inter-schema relationships across t
 
 ## Data Mart
 
+**Star Schema:** This diagram presents the business-ready data mart where `gold.fact_sales` stores transactional measures (e.g., `sales_amount`, `quantity`, `price`) and references `gold.dim_customers` and `gold.dim_products` through **surrogate keys** (`customer_key`, `product_key`). The star design clarifies table relationships, standardizes join paths, and simplifies analytics. Analysts can aggregate facts by any dimension (customer, product, category, time), quickly identify essential columns, and run consistent, performant queries for downstream reporting and ad-hoc analysis.
+
 ![Data Mart](docs//data_mart.png)
-
-
 
 ---
 
@@ -93,30 +93,3 @@ Special thanks to the following original sources:
   https://www.youtube.com/@DataWithBaraa
 
 All credit for the foundational architecture and concepts goes to the original author.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
